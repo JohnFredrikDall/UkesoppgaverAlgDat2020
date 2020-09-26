@@ -1,17 +1,27 @@
+
+import eksempelklasser.Student;
+import eksempelklasser.Studium;
 import hjelpeklasser.Tabell;
 
-import java.util.Arrays;
 
 public class Program {
-    public static void main(String[]args){
-        int[] a = Tabell.randPerm(20); // tilfeldig permutasjon av 1 . . 20
-        int[] b = Tabell.nestMaks(a);  // metoden returnerer en tabell
+    public static void main(String[]args) {
+        Student[] s = new Student[5];  // en Studenttabell
 
-        int m = b[0], nm = b[1];       // m for maks, nm for nestmaks
+        s[0] = new Student("Kari", "Svendsen", Studium.Data);    // Kari Svendsen
+        s[1] = new Student("Boris", "Zukanovic", Studium.IT);    // Boris Zukanovic
+        s[2] = new Student("Ali", "Kahn", Studium.Anvendt);      // Ali Kahn
+        s[3] = new Student("Azra", "Zukanovic", Studium.IT);     // Azra Zukanovic
+        s[4] = new Student("Kari", "Pettersen", Studium.Data);   // Kari Pettersen
 
-        Tabell.skrivln(a);        // se Oppgave 5 i Avsnitt 1.2.2
-        System.out.print("Størst(" + a[m] + ") har posisjon " + m);
-        System.out.println(", nest størst(" + a[nm] + ") har posisjon " + nm);
+        Tabell.innsettingssortering(s);                     // Programkode 1.4.2 e)
+        for (Student t : s) System.out.println(t);
+
+        // Utskrift:
+        // Ali Kahn Anvendt
+        // Kari Pettersen Data
+        // Kari Svendsen Data
+        // Azra Zukanovic IT
+        // Boris Zukanovic IT
     }
-
 }

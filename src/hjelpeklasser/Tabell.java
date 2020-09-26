@@ -9,6 +9,13 @@ public class Tabell {
 
     private Tabell(){};
 
+    public static void bytt(Object[] a, int i, int j)
+    {
+        Object temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+    }
+
     public static void bytt(int[] a, int i, int j)
     {
         int temp = a[i]; a[i] = a[j]; a[j] = temp;
@@ -51,6 +58,29 @@ public class Tabell {
         {
             throw new NoSuchElementException("fra(" + fra + ") = til(" + til + ") - tomt tabellintervall!");
         }
+    }
+
+    public static void skriv(Object[] a, int fra, int til){
+        fratilKontroll(a.length, fra, til);
+        if(til - fra > 0)
+        {
+            System.out.print(a[fra].toString());
+        }
+        for(int i = fra + 1; i < til; i++)
+        {
+            System.out.print(" " + a[i].toString());
+        }
+    }
+
+    public static void skriv(Object[] a){
+        skriv(a, 0, a.length);
+    }
+
+    public static void skrivln(Object[] a, int fra, int til)
+    {
+        fratilKontroll(a.length, fra, til);
+        skriv(a, fra, til);
+        System.out.println();
     }
 
     public static void skriv(int [] a, int fra, int til){
@@ -121,6 +151,21 @@ public class Tabell {
         return a;                        // permutasjonen returneres
     }
 
+    public static Integer[] randPermInteger(int n)
+    {
+        Integer[] a = new Integer[n];               // en Integer-tabell
+        Arrays.setAll(a, i -> i + 1);               // tallene fra 1 til n
+
+        Random r = new Random();   // hentes fra  java.util
+
+        for (int k = n - 1; k > 0; k--)
+        {
+            int i = r.nextInt(k+1);  // tilfeldig tall fra [0,k]
+            bytt(a,k,i);             // bytter om
+        }
+        return a;  // tabellen med permutasjonen returneres
+    }
+
     public static void randPerm(int[] a)  // stokker om a
     {
         Random r = new Random();     // en randomgenerator
@@ -131,6 +176,49 @@ public class Tabell {
             bytt(a,k,i);
         }
     }
+
+    public static <T extends Comparable<? super T>> int maks(T[]a)
+    {
+        int m = 0;              //indeks til største verdi
+        T maksverdi = a[0];     //største verdi
+
+        for(int i = 1; i < a.length; i++)
+        {
+            if (a[i].compareTo(maksverdi) > 0)
+            {
+                maksverdi = a[i];   //største verdi oppdateres
+                m = i;              //indeks til største verdi oppdateres
+            }
+        }
+        return m;           //returnerer indeks til største verdi
+    }
+
+    public static int maks(double[] a)     // legges i class Tabell
+    {
+        int m = 0;                           // indeks til største verdi
+        double maksverdi = a[0];             // største verdi
+
+        for (int i = 1; i < a.length; i++) if (a[i] > maksverdi)
+        {
+            maksverdi = a[i];     // største verdi oppdateres
+            m = i;                // indeks til største verdi oppdaters
+        }
+        return m;     // returnerer posisjonen til største verdi
+    }
+
+    public static int maks(char[] a)     // legges i class Tabell
+    {
+        int m = 0;                           // indeks til største verdi
+        char maksverdi = a[0];             // største verdi
+
+        for (int i = 1; i < a.length; i++) if (a[i] > maksverdi)
+        {
+            maksverdi = a[i];     // største verdi oppdateres
+            m = i;                // indeks til største verdi oppdaters
+        }
+        return m;     // returnerer posisjonen til største verdi
+    }
+
 
     public static int maks(int[] a, int fra, int til) {
         fratilKontroll(a.length, fra, til);
@@ -222,5 +310,19 @@ public class Tabell {
     public static int min(int [] a){
         return min(a, 0, a.length);
     }
+
+    public static <T extends Comparable<? super T>> void innsettingssortering(T[] a)
+    {
+        for (int i = 1; i < a.length; i++)  // starter med i = 1
+        {
+            T verdi = a[i];        // verdi er et tabellelemnet
+            int  j = i - 1;        // j er en indeks
+            // sammenligner og forskyver:
+            for (; j >= 0 && verdi.compareTo(a[j]) < 0 ; j--) a[j+1] = a[j];
+
+            a[j + 1] = verdi;      // j + 1 er rett sortert plass
+        }
+    }
+
 
 }
