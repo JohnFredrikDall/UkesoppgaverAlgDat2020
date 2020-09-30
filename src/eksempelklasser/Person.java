@@ -2,7 +2,7 @@ package eksempelklasser;
 
 import java.util.Objects;
 
-public class Person implements Comparable<Person>
+public class Person implements Comparable<Object>
 {
     private final String fornavn;         // personens fornavn
     private final String etternavn;       // personens etternavn
@@ -18,8 +18,9 @@ public class Person implements Comparable<Person>
     public String fornavn() { return fornavn; }       // aksessor
     public String etternavn() { return etternavn; }   // aksessor
 
-    public int compareTo(Person p)    // pga. Comparable<Person>
+    public int compareTo(Object o)    // pga. Comparable<Person>
     {
+        Person p = (Person)o;
         int cmp = etternavn.compareTo(p.etternavn);     // etternavn
         if (cmp != 0) return cmp;             // er etternavnene ulike?
         return fornavn.compareTo(p.fornavn);  // sammenligner fornavn
