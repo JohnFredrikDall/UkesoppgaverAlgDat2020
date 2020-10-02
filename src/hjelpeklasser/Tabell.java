@@ -195,20 +195,6 @@ public class Tabell {
         return m;           //returnerer indeks til største verdi
     }
 
-    public static <T> int maks(T[] a, Komparator<? super T> c)
-    {
-        int m = 0;                     // indeks til største verdi
-        T maksverdi = a[0];            // største verdi
-
-        for (int i = 1; i < a.length; i++)
-            if (c.compare(a[i], maksverdi) > 0)
-        {
-            maksverdi = a[i];  // største verdi oppdateres
-            m = i;             // indeks til største verdi oppdaters
-        }
-        return m;  // returnerer posisjonen til største verdi
-    } // maks
-
     public static int maks(double[] a)     // legges i class Tabell
     {
         int m = 0;                           // indeks til største verdi
@@ -340,6 +326,7 @@ public class Tabell {
         }
     }
 
+
     public static <T> void innsettingssortering(T[] a, Komparator<? super T> c)
     {
         for (int i = 1; i < a.length; i++)  // starter med i = 1
@@ -352,5 +339,43 @@ public class Tabell {
 
             a[j + 1] = verdi;      // j + 1 er rett sortert plass
         }
+    }
+    public static int binarySearch(int searchValue, int [] values, int left, int right) {
+        int middle = (left + right) / 2;
+
+        if (right - left == 0) {
+            if (searchValue == values[middle]) {
+                return middle;
+            }
+            else {
+                return -middle;
+            }
+        }
+
+        if (values[middle] <= searchValue) {
+            if (searchValue == values[middle]) {
+                return middle;
+            }
+            return binarySearch(searchValue, values, middle + 1, right);
+        }
+        else {
+            return binarySearch(searchValue, values, left, middle - 1);
+        }
+    }
+
+    public static void recursivePermutation(int [] values, int k)
+    {
+        if (k == values.length -1)
+        {
+            System.out.println(Arrays.toString(values));
+        }
+
+        for(int i = k; i < values.length; i++)
+        {
+            bytt(values, i, k);
+            recursivePermutation(values, k+1);
+            bytt(values, k, i);
+        }
+
     }
 }
